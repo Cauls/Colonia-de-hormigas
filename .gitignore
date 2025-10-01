@@ -25,7 +25,8 @@ bin/
 ### VS Code ###
 .vscode/
 .idea
-.iml
+Colonia de hormigas.iml
+.gitignore
 
 ### Mac OS ###
 .DS_Store
