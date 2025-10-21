@@ -26,13 +26,22 @@ public class Mapa {
     }
 
     public boolean dentroLimites(Posicion posicion){
+        return posicion.dentroLimites(ANCHO, ALTO);
     }
 
     public synchronized void mostrarMapa(){
-
+        for(int i = 0; i < this.ANCHO; i++){
+            for(int j = 0; j< this.ALTO; j++){
+                System.out.print(this.mapa[i][j] + " ");
+            }
+        }
     }
 
     public void prepararMapa(HashMap<String, Hormiga> hormigas){
-
+        for(int i = 0; i < this.ANCHO; i++){
+            for(int j = 0; j< this.ALTO; j++){
+                this.mapa[i][j] = this.VACIO;
+            }
+        }
     }
 }

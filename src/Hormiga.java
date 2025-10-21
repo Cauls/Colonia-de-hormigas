@@ -12,6 +12,7 @@ public abstract class Hormiga extends Thread{
         this.id = id;
         this.tipo = tipo;
         this.posicion = posicionInicial;
+        activa = true;
     }
 
     @Override
@@ -36,6 +37,6 @@ public abstract class Hormiga extends Thread{
     }
 
     public void detener(){
-
+        activa = false;
     }
 }
