@@ -9,6 +9,12 @@ public abstract class Hormiga extends Thread{
     protected static final int[][] DIRECCIONES ={
             {1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
+    /**
+     * Constructor de la clase hormiga
+     * @param id
+     * @param tipo
+     * @param posicionInicial
+     */
     public Hormiga(String id, TipoHormiga tipo, Posicion posicionInicial){
         this.id = id;
         this.tipo = tipo;
@@ -16,29 +22,47 @@ public abstract class Hormiga extends Thread{
         activa = true;
     }
 
+    /**
+     * Metodo run de la clase Hormiga
+     */
     public void run(){
     }
 
+    /**
+     * Getter de IdHormiga
+     * @return
+     */
     public String getIdHormiga() {
         return id;
     }
 
+    /**
+     * Getter del tipo de la hormiga
+     * @return
+     */
     public TipoHormiga getTipo() {
         return tipo;
     }
 
+    /**
+     * Getter de la posicion de la hormiga
+     * @return
+     */
     public Posicion getPosicion() {
         return posicion;
     }
 
-    public void setPosicion(Posicion posicion) {
-        this.posicion = posicion;
-    }
-
+    /**
+     * Devuelve true si la hormiga es activa
+     * @return
+     */
     public boolean isActiva(){
         return activa;
     }
 
+    /**
+     * Detiene la hormiga convirtiendo activa en falso
+     */
     public void detener(){
         activa = false;
     }
