@@ -1,17 +1,17 @@
 public enum TipoHormiga {
-    OBRERA("O", "Hormiga Obrera"),
-    GUERRERA("G", "Hormiga Guerrera"),
-    REINA("R", "Hormiga Reina");
+    OBRERA('O', "Hormiga Obrera"),
+    GUERRERA('G', "Hormiga Guerrera"),
+    REINA('R', "Hormiga Reina");
 
-    private final String simbolo;
+    private final char simbolo;
     private final String nombre;
 
-    TipoHormiga(String simbolo, String nombre) {
+    TipoHormiga(char simbolo, String nombre) {
         this.simbolo = simbolo;
         this.nombre = nombre;
     }
 
-    public String getSimbolo() {
+    public char getSimbolo() {
         return simbolo;
     }
 

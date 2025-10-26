@@ -16,7 +16,7 @@ public class Posicion {
     }
 
     public boolean dentroLimites(int maxX, int maxY){
-        return this.x <= maxX && this.y <= maxY && this.x >= 0 && this.y >= 0;
+        return this.x < maxX && this.y < maxY && this.x >= 0 && this.y >= 0;
     }
 
     public Posicion mover(int deltaX, int deltaY){
