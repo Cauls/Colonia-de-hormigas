@@ -16,8 +16,10 @@ public abstract class Hormiga extends Thread{
         activa = true;
     }
 
-    @Override
-    public String getId() {
+    public void run(){
+    }
+
+    public String getIdHormiga() {
         return id;
     }
 
@@ -39,6 +41,5 @@ public abstract class Hormiga extends Thread{
 
     public void detener(){
         activa = false;
-        Thread.
     }
 }

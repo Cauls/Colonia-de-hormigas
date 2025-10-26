@@ -20,7 +20,6 @@ public class SimuladorColoniaHormigas {
         for (int i = 0; i < NUMERO_OBRERAS; i++) {
             hormigas.put(Integer.toString(i), new HormigaObrera(Integer.toString(i), new Posicion(0, i)));
         }
-
     }
 
     public void ejecutar(){
@@ -50,8 +49,7 @@ public class SimuladorColoniaHormigas {
     }
 
     private void limpiarConsola(){
-        System.out.println("Limpiando consola");
-        for (this.mapa.) {}
+        System.out.print("\033\143");
     }
 
     private void mostrarEstadisticas(){
