@@ -6,6 +6,7 @@ public abstract class Hormiga extends Thread{
     protected volatile Posicion posicion;
     protected volatile boolean activa;
     protected final Random random = new Random();
+    protected final SimuladorColoniaHormigas simulador;
     protected static final int[][] DIRECCIONES ={
             {1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
@@ -15,17 +16,12 @@ public abstract class Hormiga extends Thread{
      * @param tipo
      * @param posicionInicial
      */
-    public Hormiga(String id, TipoHormiga tipo, Posicion posicionInicial){
+    public Hormiga(String id, TipoHormiga tipo, Posicion posicionInicial, SimuladorColoniaHormigas simulador){
         this.id = id;
         this.tipo = tipo;
         this.posicion = posicionInicial;
+        this.simulador = simulador;
         activa = true;
-    }
-
-    /**
-     * Metodo run de la clase Hormiga
-     */
-    public void run(){
     }
 
     /**

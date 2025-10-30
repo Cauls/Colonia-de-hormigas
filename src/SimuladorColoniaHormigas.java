@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class SimuladorColoniaHormigas extends Thread{
-    private static final int NUMERO_OBRERAS = 4,INTERVALO_ACTUALIZACION = 1;
+    private static final int NUMERO_OBRERAS = 10,INTERVALO_ACTUALIZACION = 1;
     private static final int[][] DIRECCIONES = {
     {1, 0}, {0, 1}, {-1, 0}, {0, -1}};
     private Mapa mapa;
@@ -26,21 +26,30 @@ public class SimuladorColoniaHormigas extends Thread{
      */
     public void generarHormigaObrera(){
         for (int i = 0; i < NUMERO_OBRERAS; i++) {
-            Posicion pos = new Posicion(random.nextInt(15), random.nextInt(15));
+            Posicion pos = new Posicion(random.nextInt(Mapa.ANCHO), random.nextInt(Mapa.ALTO));
             while(!mapa.dentroLimites(pos)){
-                pos = new Posicion(random.nextInt(15), random.nextInt(15));
+                pos = new Posicion(random.nextInt(Mapa.ANCHO), random.nextInt(Mapa.ALTO));
             }
-            hormigas.put(Integer.toString(i),new HormigaObrera(Integer.toString(i), pos));
+            hormigas.put(Integer.toString(i), new HormigaObrera(Integer.toString(i), pos, this));
         }
     }
 
     /**
-     * Metodo que inicia la simulacion
+     * Metodo que inicia la simulacion, genera las hormigas, las ordena que empiecen a moverse y va mostrando la info en pantalla periódicamente
      */
     public void ejecutar(){
         generarHormigaObrera();
         simulacionActiva = true;
         actualizarVisualizacion();
+        moverTodasLasHormigas();
+        while (simulacionActiva){
+            actualizarVisualizacion();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     /**
@@ -54,30 +63,21 @@ public class SimuladorColoniaHormigas extends Thread{
     }
 
     /**
-     * Contiene el bucle que se encarga de hacer que la simulacion funcione
+     * Contiene el metodo que se encarga de hacer que la simulacion muestre la info en pantalla
      */
-    private void actualizarVisualizacion(){
-        while(simulacionActiva){
+    public synchronized void actualizarVisualizacion(){
             limpiarConsola();
-            moverTodasLasHormigas();
-            mapa.mostrarMapa();
-            try {
-                //noinspection BusyWait
-                Thread.sleep(1000);
-            }catch(InterruptedException e){
-                e.printStackTrace();
-            }
             mostrarEstadisticas();
-        }
+            mapa.prepararMapa();
+            mapa.mostrarMapa();
     }
 
     /**
-     * Recorre el hashmap moviendo cada hormiga
+     * Recorre el hashmap iniciando cada hormiga
      */
     private synchronized void moverTodasLasHormigas(){
         for (Hormiga h : hormigas.values()){
-            moverHormigaAleatoriamente(h);
-            mapa.prepararMapa();
+            h.start();
         }
     }
 
@@ -85,7 +85,7 @@ public class SimuladorColoniaHormigas extends Thread{
      * Mueve una hormiga en una direccion, asegurandose de que en esa posicion no haya una hormiga o el hormiguero en si
      * @param hormiga
      */
-    private synchronized void moverHormigaAleatoriamente(Hormiga hormiga){
+    public synchronized void moverHormigaAleatoriamente(Hormiga hormiga){
         int movimiento = 0;
         do {
             movimiento = random.nextInt(4);
